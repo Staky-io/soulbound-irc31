@@ -24,11 +24,10 @@ import score.Context;
 import score.DictDB;
 import score.annotation.EventLog;
 import score.annotation.External;
-import score.annotation.Optional;
 
 import java.math.BigInteger;
 
-public abstract class Soulbound implements IRC31 {
+public class Soulbound {
 
     // ================================================
     // Consts
@@ -41,10 +40,13 @@ public abstract class Soulbound implements IRC31 {
     // id => (owner => balance)
     private final BranchDB<BigInteger, DictDB<Address, BigInteger>> balances = Context.newBranchDB("balances", BigInteger.class);
     // owner => (operator => approved)
-    private final BranchDB<Address, DictDB<Address, Boolean>> operatorApproval = Context.newBranchDB("approval", Boolean.class);
     // id => token URI
     private final DictDB<BigInteger, String> tokenURIs = Context.newDictDB("token_uri", String.class);
     private final DictDB<Address, Boolean> admins = Context.newDictDB("admins", Boolean.class);
+
+    public Soulbound() {
+        admins.set(Context.getOwner(), true);
+    }
 
     // ================================================
     // Utils

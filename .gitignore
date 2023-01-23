@@ -2,3 +2,9 @@
 .idea
 build
 out
+venv
+scripts
+run.py
+res
+bin/
+pyvenv.cfg
