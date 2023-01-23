@@ -88,13 +88,6 @@ public abstract class Soulbound implements IRC31 {
         return tokenURIs.get(_id);
     }
 
-    @External
-    public void setApprovalForAll(Address _operator, boolean _approved) {
-        final Address caller = Context.getCaller();
-
-        operatorApproval.at(caller).set(_operator, _approved);
-        this.ApprovalForAll(caller, _operator, _approved);
-    }
 
     @External
     public void mint(BigInteger _id, String _uri, Address _to) {
@@ -122,11 +115,6 @@ public abstract class Soulbound implements IRC31 {
         admins.set(_account, false);
     }
 
-    @External(readonly=true)
-    public boolean isApprovedForAll(Address _owner, Address _operator) {
-        return operatorApproval.at(_owner).getOrDefault(_operator, false);
-    }
-
     // ================================================
     // Event Logs
     // ================================================
@@ -136,9 +124,6 @@ public abstract class Soulbound implements IRC31 {
 
     @EventLog(indexed=3)
     public void TransferBatch(Address _operator, Address _from, Address _to, byte[] _ids, byte[] _values) {}
-
-    @EventLog(indexed=2)
-    public void ApprovalForAll(Address _owner, Address _operator, boolean _approved) {}
 
     @EventLog(indexed=1)
     public void URI(BigInteger _id, String _value) {}
