@@ -104,7 +104,7 @@ public class Soulbound {
 
     @External
     public void addAdmin(Address _account) {
-        checkAdminOrThrow(_account);
+        checkAdminOrThrow(Context.getCaller());
         if (isAdmin(_account)) {
             Context.revert("AlreadyAdmin");
         }
@@ -115,6 +115,12 @@ public class Soulbound {
     public void removeAdmin(Address _account) {
         checkOwnerOrThrow();
         admins.set(_account, false);
+    }
+
+    @External
+    public void setTokenURI(BigInteger _id, String _uri) {
+        checkAdminOrThrow(Context.getCaller());
+        _setTokenURI(_id, _uri);
     }
 
     // ================================================
