@@ -91,6 +91,7 @@ public class Soulbound {
     }
 
 
+
     @External
     public void mint(BigInteger _id, String _uri, Address _to) {
         final Address caller = Context.getCaller();
@@ -160,7 +161,8 @@ public class Soulbound {
         return writer.toByteArray();
     }
 
-    private boolean isAdmin(Address account) {
+    @External(readonly=true)
+    public boolean isAdmin(Address account) {
         return admins.getOrDefault(account, false);
     }
 
